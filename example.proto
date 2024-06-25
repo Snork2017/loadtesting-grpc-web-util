@@ -1,0 +1,12 @@
+syntax = "proto3";
+package example.proto;
+
+service ExampleService {
+  rpc GetExampleData(GetExampleDataRequest) returns (GetExampleDataResponse);
+}
+message GetExampleDataRequest {
+  string field = 1;
+}
+message GetExampleDataResponse {
+  string field = 1;
+}

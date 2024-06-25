@@ -1,0 +1,29 @@
+{
+  "protoGenFile": "./src/example_grpc_web_pb.js",
+  "requests": [
+    {
+      "address": "DOMAIN or HOST:PORT",
+      "serviceName": "ExampleServiceClient",
+      "methodName": "getExampleData",
+      "requestType": "GetExampleDataRequest",
+      "responseType": "GetExampleDataResponse",
+      "payload": {
+        "field1": "test_field_1",
+        "field2": "test_field-2"
+      }
+    },
+    {
+      "address": "DOMAIN or HOST:PORT",
+      "serviceName": "ExampleServiceClient2",
+      "methodName": "getExampleData2",
+      "requestType": "GetExampleDataRequest2",
+      "responseType": "GetExampleDataResponse2",
+      "payload": {
+        "field3": "test_field_3",
+        "field4": "test_field-4"
+      }
+    }
+  ],
+  "duration": 3600,
+  "rps": 10
+}
