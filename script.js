@@ -21,7 +21,7 @@ try {
 }
 
 // Dynamically loading the proto file
-const proto = require(path.resolve(config.protoFile));
+const proto = require(path.resolve(config.protoGenFile));
 
 // Setting default values if not provided
 const rps = config.rps || 10;
@@ -64,7 +64,7 @@ config.requests.forEach((requestConfig) => {
         return;
     }
 
-    const client = new clientClass(requestConfig.endpoint, null, null);
+    const client = new clientClass(requestConfig.address, null, null);
 
     const startTime = Date.now();
     const endTime = startTime + duration;

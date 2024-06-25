@@ -24,10 +24,10 @@ Create a configuration file in JSON or YAML format. Below is an example configur
 
 ```json
 {
-  "protoFile": "./src/example_grpc_web_pb.js",
+  "protoGenFile": "./src/example_grpc_web_pb.js",
   "requests": [
     {
-      "endpoint": "DOMAIN or HOST:PORT",
+      "address": "DOMAIN or HOST:PORT",
       "serviceName": "ExampleServiceClient",
       "methodName": "getExampleData",
       "requestType": "GetExampleDataRequest",
@@ -38,7 +38,7 @@ Create a configuration file in JSON or YAML format. Below is an example configur
       }
     },
     {
-      "endpoint": "DOMAIN or HOST:PORT",
+      "address": "DOMAIN or HOST:PORT",
       "serviceName": "ExampleServiceClient2",
       "methodName": "getExampleData2",
       "requestType": "GetExampleDataRequest2",
@@ -69,9 +69,7 @@ An example configuration file -> (config.json)
     4. `requestType`: The request message type.
     5. `responseType`: The response message type.
     6. `payload`: The payload for the request.
-3. `concurrentUsers`: Number of concurrent users (threads) to simulate.
 4. `duration`: Duration of the test in seconds.
-5. `rampUpTime`: Time in seconds to gradually increase the load to the target RPS.
 6. `rps`: Requests per second.
 
 ## Running the Tool
