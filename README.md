@@ -49,9 +49,7 @@ Create a configuration file in JSON or YAML format. Below is an example configur
       }
     }
   ],
-  "concurrentUsers": 10,
   "duration": 3600,  // Duration in seconds
-  "rampUpTime": 600, // Ramp-Up Time in seconds
   "rps": 10          // Requests Per Second
 }
 ```
