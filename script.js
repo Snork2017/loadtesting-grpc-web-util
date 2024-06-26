@@ -28,13 +28,28 @@ const rps = config.rps || 10;
 const duration = (config.duration || 3600) * 1000; // Duration in milliseconds
 const interval = 1000 / rps;
 
+let totalRequests = 0;
+
+// Function to convert camelCase to the expected method name format
+function toMethodName(fieldName) {
+    return 'set' + fieldName.charAt(0).toUpperCase() + fieldName.slice(1).toLowerCase();
+}
+
 function makeRequest(client, methodName, requestType, payload) {
     return new Promise((resolve, reject) => {
         const request = new requestType();
 
         for (const key in payload) {
-            if (payload.hasOwnProperty(key) && typeof request['set' + key.charAt(0).toUpperCase() + key.slice(1)] === 'function') {
-                request['set' + key.charAt(0).toUpperCase() + key.slice(1)](payload[key]);
+            if (payload.hasOwnProperty(key)) {
+                let setterMethod = toMethodName(key);
+                if (typeof request[setterMethod] !== 'function') {
+                    setterMethod = 'set' + key.charAt(0).toUpperCase() + key.slice(1); // Attempt without lowercasing the rest
+                }
+                if (typeof request[setterMethod] === 'function') {
+                    request[setterMethod](payload[key]);
+                } else {
+                    console.error(`Neither method ${toMethodName(key)} nor ${setterMethod} found in request type`);
+                }
             }
         }
 
@@ -44,7 +59,7 @@ function makeRequest(client, methodName, requestType, payload) {
                 reject(err);
                 return;
             }
-            console.log(`${methodName} Response: ${response.toObject()}`);
+            console.log(`${methodName} Success response! Total requests: ${++totalRequests}`);
             resolve(response);
         });
     });
@@ -86,7 +101,6 @@ config.requests.forEach((requestConfig) => {
 
         Promise.all(promises)
             .then(() => {
-                console.log('Batch completed');
             })
             .catch((err) => {
                 console.error('Batch error:', err);
